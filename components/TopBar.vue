@@ -1,10 +1,14 @@
+
 <template>
   <nav class="top-bar">
     <div class="menu">
-      <button class="menu-button" v-on:click="
-  menuView();
-menuBTn();
-      "></button>
+      <button
+        class="menu-button"
+        v-on:click="
+          menuView();
+          menuBTn();
+        "
+      ></button>
     </div>
     <div class="logo">
       <router-link to="/" style="text-decoration: none; color: inherit">
@@ -13,18 +17,27 @@ menuBTn();
     </div>
     <div class="perfil">
       <section class="search">
-        <input type="search" name="search-bar" id="search-bar-top" placeholder="Pesquise algo..."
-          v-on:keyup.enter="search()" />
+        <input
+          type="search"
+          name="search-bar"
+          id="search-bar-top"
+          placeholder="Pesquise algo..."
+          v-model="search"
+        />
         <label for="search-bar" class="label-search"></label>
-
-        <!-- remover a classe visible quando perfer o foco -->
         <section class="search-results-dropdown" data-visible="false">
-          <section :key="resultado" v-for="resultado in resultados" :index="i">
-            <route-link :to="`/artigos/${articleID}`" style="text-decoration: none; color: inherit">
-              <h2>{{ resultado.titulo }}</h2>
-              <p>{{ resultado.resumo }}</p>
-            </route-link>
-          </section>
+          <router-link
+            :key="resultado"
+            v-for="resultado in resultados"
+            :to="`/artigos/${resultado.id}`"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="article-link">
+              <p class="link-title">{{ resultado.titulo }}</p>
+              <p class="link-description">{{ resultado.resumo }}</p>
+              <p class="link-topic">Tópicos: {{ resultado.assuntos }}</p>
+            </div>
+          </router-link>
         </section>
       </section>
       <button class="buttons btn-perfil">
@@ -35,12 +48,17 @@ menuBTn();
 </template>
 
 <script>
-
 export default {
-  asyncData() {
+  data() {
     return {
-      resultados: []
+      search: "",
+      resultados: [],
     };
+  },
+  watch: {
+    search(value) {
+      this.doSearch(value);
+    },
   },
   methods: {
     menuBTn() {
@@ -57,22 +75,17 @@ export default {
         ? primaryNav.setAttribute("data-visible", "true")
         : primaryNav.setAttribute("data-visible", "false");
     },
-
-    requisitar(q) {
-      const response = await this.$axios.get(`/pagina/${q}`);
-      this.resultados = response.data;
-
-    },
-
-    async search() {
-      const search = document.querySelector(".search");
-      const result_dropdown = document.querySelector(
-        ".search-results-dropdown"
-      );
-      result_dropdown.innerHTML = "";
-      const q = search.querySelector("input").value;
-
-      this.requisitar(q);
+    doSearch(value) {
+      if (value != "") {
+        this.$axios
+          .get("/paginas/" + this.search)
+          .then((response) => {
+            this.resultados = response.data;
+          })
+          .catch((e) => console.log(e));
+      } else {
+        this.resultados = [];
+      }
     },
   },
 };
@@ -85,7 +98,7 @@ export default {
 @import "~/static/css/menu.css";
 @import "~/static/css/elements.css";
 </style>
-
+  
 <style>
 @import "~/static/css/top.css";
 @import "~/static/css/input.css";
