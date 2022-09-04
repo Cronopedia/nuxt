@@ -1,26 +1,29 @@
 <template>
   <section class="body">
     <TopBar></TopBar>
-    <router-link :to="`/artigos/editar/${article.ID}`">
+    <router-link :to="`/artigos/editar/${article.id}`">
           <MobileEdit></MobileEdit>
     </router-link>
    
     <PrimaryMenu></PrimaryMenu>
 
-    <section class="article-view" :id="`${article.ID}`">
+    <section class="article-view" :id="`${article.id}`">
       <section class="article-content">
-        <router-link :to="`/artigos/editar/${article.ID}`">
+        <router-link :to="`/artigos/editar/${article.id}`">
           <ButtonEdit></ButtonEdit>
         </router-link>
+        <h2 v-html="`${article.titulo}`"></h2>
         <p v-html="`${article.conteudo}`"></p>
+
+        <p v-html="`Data de publicação: <b>${article.data}</b>`"></p>
       </section>
-      <section class="article-imagens">
+      <!-- <section class="article-imagens">
         <ArticleImage
           :key="i"
           v-for="i in article.images"
           :index="i"
         ></ArticleImage>
-      </section>
+      </section> -->
     </section>
   </section>
 </template>
@@ -32,7 +35,7 @@ export default {
   name: "artigo",
   head() {
     return {
-      title: "Artigo",
+      title: "Artigo - " + this.article.titulo,
     };
   },
   components: {
@@ -41,46 +44,17 @@ export default {
 },
   asyncData({ params }) {
     return {
-      article: {
-        ID: params.id,
-        // vetor com comprimento aleatório de 0 a 5
-        images: Array.from({ length: Math.floor(Math.random() * 5) }, () =>
-          Math.floor(Math.random() * 5)
-        ),
-        conteudo: `<h1>Titulo</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tempor morbi
-          justo egestas vitae aliquam. Donec sed sagittis massa venenatis, nunc
-          non nunc sed. Elementum, eu enim, maecenas rhoncus adipiscing integer
-          cursus cursus. Nulla pellentesque arcu aliquet massa consequat nulla
-          at aliquam. Urna ut aliquam etiam posuere risus, tortor enim. Nec, ac
-          elit in euismod vitae, pellentesque et. Libero mauris aenean
-          ullamcorper varius eget mi eget justo. Nunc habitasse volutpat nibh
-          sed purus massa. Malesuada egestas diam, lacinia a, enim non neque
-          justo elit. Habitasse pellentesque risus, libero egestas egestas hac
-          in euismod nisi. Montes, enim faucibus neque leo ultrices nulla
-          vulputate tempus. Hac sed et scelerisque nisi, gravida. Quis at
-          pharetra semper sem etiam justo ac purus enim. Accumsan ut blandit
-          lectus ultricies ante molestie felis. Pretium sed vitae pretium mi
-          magna non lacus. Urna, dolor in fermentum bibendum. In volutpat
-          libero, id eget mattis malesuada habitasse tellus. Purus mattis
-          pharetra justo risus luctus dolor <b>amet</b> ut. Nec amet, netus vitae
-          tristique. Arcu dolor ut amet, nunc. Purus commodo molestie nunc,
-          consequat bibendum. Aliquam vitae sit nunc, tortor imperdiet. Cursus
-          tristique et sollicitudin et faucibus risus risus at. Sagittis purus
-          feugiat porta pharetra gravida ornare proin sagittis. Bibendum amet,
-          scelerisque malesuada pharetra. Ultricies non maecenas viverra
-          sagittis sit dictum aliquam. Nibh faucibus tellus adipiscing pharetra,
-          id morbi at quis bibendum. Aliquet venenatis quisque integer amet
-          neque tincidunt scelerisque amet, neque. Ut risus ac id massa, purus
-          quam sed. Erat fermentum suspendisse suscipit mi metus, platea
-          volutpat. Varius at aliquam tortor vitae tellus venenatis. At urna
-          lorem lorem vitae. Faucibus urna, leo venenatis a lorem viverra a.
-          Cras semper vitae cras consequat nibh eget lobortis congue lacus. Sed
-          habitant sit fames erat.</p>`,
-      },
+      ID: params.id,
+      article: {}
     };
   },
   methods: {
-    // Redirecionar para a página de edição em: /_artigos/_edicao/_id
+    
+  },
+
+  async mounted(){
+      const response = await this.$axios.get("/paginas/id/"+this.ID);
+      this.article = response.data;
   },
 };
 </script>

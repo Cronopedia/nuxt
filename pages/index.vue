@@ -33,13 +33,13 @@
       <section class="articles">
         <section class="article day">
           <h2>Artigo do Dia</h2>
-          <Card :random="false"></Card>
+          <Card></Card>
         </section>
 
         <section class="article day">
           <h2>Explorar Artigos</h2>
-          <Card></Card>
-          <Card></Card>
+          <Card :id="1"></Card>
+          <Card :id="2"></Card>
         </section>
       </section>
     </section>

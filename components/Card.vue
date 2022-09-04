@@ -24,20 +24,17 @@
 export default {
   name: "Card",
   props: {
-    random: {
-      type: Boolean,
-      default: true,
+    id: {
+      type: Number,
+      default: 1,
     },
   },
   data() {
     return {
-      articleID: this.random ? this.GerarID() : 0,
+      articleID: this.id
     };
   },
   methods: {
-    GerarID: function () {
-      return parseInt(Math.random() * 100000000);
-    },
   },
 };
 </script>
