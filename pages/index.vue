@@ -38,8 +38,8 @@
 
         <section class="article day">
           <h2>Explorar Artigos</h2>
-          <Card :id="1"></Card>
           <Card :id="2"></Card>
+          <Card :id="3"></Card>
         </section>
       </section>
     </section>
@@ -65,7 +65,6 @@ export default {
         ? btn.classList.remove("clicado")
         : btn.classList.add("clicado");
     },
-    
   },
   components: { TopBar, MobileNav, Card, PrimaryMenu },
 };

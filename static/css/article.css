@@ -20,6 +20,11 @@ body {
     align-items: center;
 }
 
+img {
+    width: 360px !important;
+    height: 360px !important;
+}
+
 /* Sessão do  conteudo*/
 .article-view section.article-content {
     background-color: #fff;

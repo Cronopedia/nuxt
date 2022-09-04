@@ -3,9 +3,9 @@
     <!-- <img :src="`/static/img/artigos/${articleID}/${articleID}.jpg`" /> -->
 
     <div class="article-image-container">
-      <img :src="`https://picsum.photos/id/${randomIMG()}/450/450`" alt="" />
+      <img :src="`${url}`" alt="" />
     </div>
-    <span class="descricao"> {{ article.descricao }}</span>
+    <span class="descricao"> Descrição: Algum dia nós colocamos</span>
   </section>
 </template>
 
@@ -41,27 +41,10 @@ section.article-image span.descricao {
 export default {
   name: "ArticleImage",
   props: {
-    ArticleID: {
-      type: Number,
-      default: null,
-    },
-    index: {
-      type: Number,
-      default: 1,
+    url: {
+      type: String,
     },
   },
-  data() {
-    return {
-      article: {
-        ID: this.ArticleID,
-        descricao: "Descrição da imagem " + this.index,
-      },
-    };
-  },
-  methods: {
-    randomIMG: function () {
-      return parseInt(Math.random() * 100);
-    },
-  },
+  methods: {},
 };
 </script>

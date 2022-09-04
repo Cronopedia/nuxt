@@ -76,7 +76,8 @@ export default {
         : primaryNav.setAttribute("data-visible", "false");
     },
     doSearch(value) {
-      if (value != "") {
+      // Verificar se tem um texto válido (pro REGEX não bugar e entrgar todas as páginas que existem)
+      if (String(value).trim() != "") {
         this.$axios
           .get("/paginas/" + this.search)
           .then((response) => {
@@ -84,6 +85,7 @@ export default {
           })
           .catch((e) => console.log(e));
       } else {
+        // ocultar os resultados quando a barra de pesquisa estiver vazia
         this.resultados = [];
       }
     },

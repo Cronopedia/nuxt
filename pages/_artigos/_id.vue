@@ -2,9 +2,9 @@
   <section class="body">
     <TopBar></TopBar>
     <router-link :to="`/artigos/editar/${article.id}`">
-          <MobileEdit></MobileEdit>
+      <MobileEdit></MobileEdit>
     </router-link>
-   
+
     <PrimaryMenu></PrimaryMenu>
 
     <section class="article-view" :id="`${article.id}`">
@@ -17,20 +17,20 @@
 
         <p v-html="`Data de publicação: <b>${article.data}</b>`"></p>
       </section>
-      <!-- <section class="article-imagens">
+      <section class="article-imagens">
         <ArticleImage
           :key="i"
-          v-for="i in article.images"
-          :index="i"
+          v-for="i in article.imagens"
+          :url="i"
         ></ArticleImage>
-      </section> -->
+      </section>
     </section>
   </section>
 </template>
 
 <script>
-import MobileEdit from '~/components/MobileEdit.vue';
-import MobileNav from '~/components/MobileNav.vue';
+import MobileEdit from "~/components/MobileEdit.vue";
+import MobileNav from "~/components/MobileNav.vue";
 export default {
   name: "artigo",
   head() {
@@ -40,21 +40,19 @@ export default {
   },
   components: {
     MobileEdit,
-    MobileNav
-},
+    MobileNav,
+  },
   asyncData({ params }) {
     return {
       ID: params.id,
-      article: {}
+      article: {},
     };
   },
-  methods: {
-    
-  },
+  methods: {},
 
-  async mounted(){
-      const response = await this.$axios.get("/paginas/id/"+this.ID);
-      this.article = response.data;
+  async mounted() {
+    const response = await this.$axios.get("/paginas/id/" + this.ID);
+    this.article = response.data;
   },
 };
 </script>
