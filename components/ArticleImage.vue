@@ -3,7 +3,7 @@
     <!-- <img :src="`/static/img/artigos/${articleID}/${articleID}.jpg`" /> -->
 
     <div class="article-image-container">
-      <img :src="`${url}`" alt="" />
+      <img :style="`background-image: url('${url}');`" alt="" />
     </div>
     <span class="descricao"> Descrição: Algum dia nós colocamos</span>
   </section>

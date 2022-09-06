@@ -14,7 +14,7 @@
 export default {
   name: "LoginPage",
 
-  components: { TopBar, MobileNav, Card, PrimaryMenu, LoginForm },
+  components: { TopBar, MobileNav, PrimaryMenu, LoginForm },
   head() {
     return {
       title: "Login",
@@ -24,7 +24,6 @@ export default {
 
 import TopBar from "~/components/TopBar.vue";
 import MobileNav from "~/components/MobileNav.vue";
-import Card from "~/components/Card.vue";
 import PrimaryMenu from "~/components/PrimaryMenu.vue";
 import LoginForm from "~/components/LoginForm.vue";
 </script>

@@ -14,8 +14,12 @@
         </router-link>
         <h2 v-html="`${article.titulo}`"></h2>
         <p v-html="`${article.conteudo}`"></p>
-
-        <p v-html="`Data de publicação: <b>${article.data}</b>`"></p>
+        <br />
+        <p
+          v-html="
+            `Publicado por <b>${article.autor}</b> em <b>${article.data}</b>`
+          "
+        ></p>
       </section>
       <section class="article-imagens">
         <ArticleImage
