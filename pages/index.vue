@@ -33,13 +33,24 @@
       <section class="articles">
         <section class="article day">
           <h2>Artigo do Dia</h2>
-          <Card></Card>
+          <CardJava
+            v-bind:title="`${response[random].titulo}`"
+            v-bind:resumo="`${response[random].resumo}`"
+            v-bind:img="`${response[random].imagens}`"
+            :id="response[random].id"
+          ></CardJava>
         </section>
 
         <section class="article day">
           <h2>Explorar Artigos</h2>
-          <Card :id="2"></Card>
-          <Card :id="3"></Card>
+        </section>
+        <section :key="card" v-for="card in response">  
+          <CardJava
+            v-bind:title="`${card.titulo}`"
+            v-bind:resumo="`${card.resumo}`"
+            v-bind:img="`${card.imagens}`"
+            :id="card.id"
+          ></CardJava>
         </section>
       </section>
     </section>
@@ -53,25 +64,33 @@
 <script>
 export default {
   name: "IndexPage",
+  data(){
+    return{
+      
+    };
+  },
   head() {
     return {
       title: "Explore novos temas.",
     };
   },
+
   methods: {
-    menuBTn() {
-      const btn = document.querySelector("button.menu-button");
-      btn.classList.contains("clicado")
-        ? btn.classList.remove("clicado")
-        : btn.classList.add("clicado");
-    },
   },
-  components: { TopBar, MobileNav, Card, PrimaryMenu },
+
+  async asyncData({ $axios }) {
+    const response = await $axios.$get("/paginas");
+    const random = await $axios.$get("/paginas/daily");
+    return { response, random };
+  },
+
+  components: { TopBar, MobileNav, Card, PrimaryMenu, CardJava },
 };
 
 import TopBar from "~/components/TopBar.vue";
 import MobileNav from "~/components/MobileNav.vue";
 import Card from "~/components/Card.vue";
 import PrimaryMenu from "~/components/PrimaryMenu.vue";
+import CardJava from "../components/CardJava.vue";
 </script>
 
