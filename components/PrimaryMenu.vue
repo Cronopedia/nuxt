@@ -2,7 +2,7 @@
   <ul class="primary-menu" id="primary-nav" data-visible="false">
     <li><a href="/"> Home</a></li>
     <li><a href="/artigos"> Artigos</a></li>
-
+    <li><a href="/criar"> Criar</a></li>
     <li><a :href="`/artigo/${randArtigo}`"> Surpreenda-me!</a></li>
     <li id="login"><a href="/login"> Log in</a></li>
   </ul>
@@ -12,10 +12,10 @@
 export default {
   name: "PrimaryMenu",
   data() {
-    return{
+    return {
       randArtigo: Math.floor(Math.random() * 6),
-    }
-  }
+    };
+  },
 };
 </script>
 
